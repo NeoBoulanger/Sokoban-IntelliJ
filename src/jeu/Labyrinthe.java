@@ -16,4 +16,17 @@ public class Labyrinthe {
     public void placerMur(int x, int y) {
         this.murs[x][y] = true;
     }
+
+    public boolean etreMur(int x, int y) {
+        return murs[x][y];
+    }
+
+    public int getLargeur() {
+        return murs.length;
+    }
+
+    public int getHauteur() {
+        return murs[0].length;
+    }
+
 }

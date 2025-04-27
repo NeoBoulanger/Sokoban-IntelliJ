@@ -12,4 +12,12 @@ public class ListeElements {
     public void ajouterElement(Element e) {
         this.liste.add(e);
     }
+
+    public Element getElement(int pos) {
+        return this.liste.get(pos);
+    }
+
+    public int getTaille() {
+        return this.liste.size();
+    }
 }

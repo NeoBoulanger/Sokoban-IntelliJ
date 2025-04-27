@@ -1,6 +1,7 @@
 package jeu;
 
 import java.io.*;
+import java.lang.reflect.Array;
 
 public class Chargement {
     private BufferedReader src;
@@ -35,7 +36,8 @@ public class Chargement {
             for (int i=0; i < dimensions[1];i++) {
                 ligne=chargement.src.readLine();
                 for (int j = 0; j < dimensions[0]; j++) {
-                    switch (ligne.charAt(j)) {
+                    char c = (j < ligne.length()) ? ligne.charAt(j) : Labyrinthe.VIDE;
+                    switch (c) {
                         case Labyrinthe.MUR:
                             labyrinthe.placerMur(j, i);
                             break;
@@ -82,9 +84,7 @@ public class Chargement {
         try{
             while((ligne=c.src.readLine())!= null) {
                 dimensions[1]++;
-                if (ligne.length() > dimensions[0]) {
-                    dimensions[0] = ligne.length() - 1;
-                }
+                dimensions[0] = Math.max(dimensions[0], ligne.length());
             }
         }catch(IOException e){
             System.out.println("Erreur lors de la lecture d'une ligne" + e.getMessage());

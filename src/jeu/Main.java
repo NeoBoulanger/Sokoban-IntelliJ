@@ -2,6 +2,7 @@ package jeu;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello, World!");
+        Jeu jeu=Chargement.chargerJeu(args[0]);
+        System.out.println(jeu.jeuToString());
     }
 }
