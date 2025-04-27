@@ -1,5 +1,7 @@
 package jeu;
 
+import javax.swing.*;
+
 public class Jeu {
     private Perso perso;
     private ListeElements caisses;
@@ -84,34 +86,46 @@ public class Jeu {
         return suivant;
     }
 
-    public void deplacerPerso(String action) {
-        // On récupere les coordonnees suivante du joueur a deplacer
-        int[] caseSuivante = getSuivant(this.perso.getX(), this.perso.getY(), action);
-        int nextX = caseSuivante[0];
-        int nextY = caseSuivante[1];
+    public void deplacerPerso(String action)throws ActionInconnueException {
+        // On verifie si l'action est bonne, sinon on lance l'exception ActionInconnueException
+            switch (action) {
+                case Jeu.HAUT:
+                case Jeu.BAS:
+                case Jeu.GAUCHE:
+                case Jeu.DROITE:
+                    // On ne fait rien pour ces cas précis
+                    break;
 
-        // On vérifie si un mur est derriere
-        if(laby.etreMur(nextX, nextY)) {
-            return;
-        }
+                default:
+                    throw new ActionInconnueException("Action inattendue : " + action);
+            }
+            // On récupere les coordonnees suivante du joueur a deplacer
+            int[] caseSuivante = getSuivant(this.perso.getX(), this.perso.getY(), action);
+            int nextX = caseSuivante[0];
+            int nextY = caseSuivante[1];
 
-        // On verifie si une caisse est derriere
-        Element element = caisses.getElement(nextX, nextY);
-        if(element != null) {
-            Caisse caisse = (Caisse) element;
-            int [] derriereCaisse = getSuivant(nextX, nextY, action);
-            if(!laby.etreMur(derriereCaisse[0], derriereCaisse[1]) && caisses.getElement(derriereCaisse[0], derriereCaisse[1]) == null) {
-                caisse.setX(derriereCaisse[0]);
-                caisse.setY(derriereCaisse[1]);
+            // On vérifie si un mur est derriere
+            if(laby.etreMur(nextX, nextY)) {
+                return;
+            }
 
+            // On verifie si une caisse est derriere
+            Element element = caisses.getElement(nextX, nextY);
+            if(element != null) {
+                Caisse caisse = (Caisse) element;
+                int [] derriereCaisse = getSuivant(nextX, nextY, action);
+                if(!laby.etreMur(derriereCaisse[0], derriereCaisse[1]) && caisses.getElement(derriereCaisse[0], derriereCaisse[1]) == null) {
+                    caisse.setX(derriereCaisse[0]);
+                    caisse.setY(derriereCaisse[1]);
+
+                    this.perso.setX(nextX);
+                    this.perso.setY(nextY);
+                }
+            } else {
                 this.perso.setX(nextX);
                 this.perso.setY(nextY);
             }
-        } else {
-            this.perso.setX(nextX);
-            this.perso.setY(nextY);
         }
-    }
 
     public boolean etreFini() {
         // On parcours la liste de toute les caisses

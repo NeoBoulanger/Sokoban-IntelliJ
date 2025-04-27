@@ -16,7 +16,12 @@ public class MainJeu {
 
             String nb = scanner.nextLine();
 
-            jeu.deplacerPerso(nb);
+            try{
+                jeu.deplacerPerso(nb);
+            }catch (ActionInconnueException e){
+                System.out.println(e.getMessage());
+            }
+
             fini = jeu.etreFini();
         }
         for (int i = 0; i<20 ; i++) {
