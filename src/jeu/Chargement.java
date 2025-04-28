@@ -19,7 +19,7 @@ public class Chargement {
         }
     }
 
-    public static Jeu chargerJeu(String nomFichier) {
+    public static Jeu chargerJeu(String nomFichier){
         // On creer un objet Chargement pour s'adapter à la méthode static et un objet Labyrinthe
         Chargement chargement = new Chargement(nomFichier);
         // On récupere dans une String une ligne a traiter du fichiers texte et un tableau correspondant aux dimensions
@@ -57,17 +57,19 @@ public class Chargement {
                     }
                 }
             }
+            if(listeCaisses.getTaille() != listeDepots.getTaille()){
+                throw new FichierIncorrectException("Nombre de depots incorrect");
+            }
+            if(personnage!=null) {
+                Jeu jeu=new Jeu(personnage, listeCaisses, listeDepots, labyrinthe);
+                return jeu;
+            }
         }
         catch(FichierIncorrectException e) {
             System.out.println("Fichier incorrect : " + e.getMessage());
         }
         catch (IOException e) {
             System.out.println("Erreur dans la lecture du fichier : " + e.getMessage());
-        }
-        // Puis on creer un objet correspondant a chaque fois que l'on tombe sur l'un des elements ci-dessus
-        if(personnage!=null) {
-            Jeu jeu=new Jeu(personnage, listeCaisses, listeDepots, labyrinthe);
-            return jeu;
         }
         throw new IllegalStateException("Le chargement est incorrect");
     }

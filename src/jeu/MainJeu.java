@@ -14,10 +14,10 @@ public class MainJeu {
                     "Haut : " + Jeu.HAUT + '\n' + "Bas : " + Jeu.BAS + '\n' +
                     "Gauche : " + Jeu.GAUCHE + '\n' + "Droite : " + Jeu.DROITE + "\033[0m");
 
-            String nb = scanner.nextLine();
+            String action = scanner.nextLine();
 
             try{
-                jeu.deplacerPerso(nb);
+                jeu.deplacerPerso(action);
             }catch (ActionInconnueException e){
                 System.out.println(e.getMessage());
             }
@@ -29,6 +29,5 @@ public class MainJeu {
         }
         System.out.println(jeu.jeuToString());
         System.out.println("\n Félicitations !! Vous avez réussi le niveau ! \n \n \n \n");
-
     }
 }
