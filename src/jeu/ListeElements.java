@@ -29,4 +29,8 @@ public class ListeElements {
     public int getTaille() {
         return this.liste.size();
     }
+
+    public ArrayList<Element> getListe() {
+        return liste;
+    }
 }

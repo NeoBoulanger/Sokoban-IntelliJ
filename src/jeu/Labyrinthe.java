@@ -29,4 +29,7 @@ public class Labyrinthe {
         return murs[0].length;
     }
 
+    public boolean[][] getMurs() {
+        return murs;
+    }
 }
